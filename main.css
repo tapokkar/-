@@ -1,0 +1,22 @@
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 60px;
+}
+
+.logo {
+    height: 130px;
+    width: auto;
+    margin-bottom: 0; /* Убираем любой отступ снизу */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px 0; /* Добавляем вертикальные отступы */
+    display: block;
+}
