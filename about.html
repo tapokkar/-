@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цунами</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+    
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            height: 100vh;
+                   margin: 0;
+            padding: 0;
+    background-image: url('img/11111.jpg');
+    background-size: cover; 
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+        
+.header {
+    background: none; 
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 60px;
+    position: relative;
+    z-index: 2;
+}
+        
+        
+        .logo {
+            height: 180px; 
+            width: auto;
+            margin-top: 25px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 50px; 
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgb(0, 0, 0); 
+            font-size: 22px; 
+            font-weight: bold;
+            white-space: nowrap; 
+            transition: all 0.3s ease; 
+            position: relative;
+        }
+
+    .nav-link:not(.contact-btn):not(.dropdown-toggle):hover {
+            color: #ff2600 !important;
+        }
+
+        .contact-btn {
+            background: rgb(27, 2, 170); 
+            color:#ffffff !important;
+            padding: 12px 30px !important;
+            border-radius: 25px; 
+            border: none;
+            font-weight: bold;
+            transition: all 0.3s ease; 
+            display: inline-block;
+            transform: scale(1); 
+        }
+        
+        
+        .contact-btn:hover {
+            transform: scale(1.1); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+                 color: black !important;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+              .dropdown-toggle::after {
+            content: " ▼";
+            font-size: 14px;
+        }
+
+          .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+       
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+       
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+        
+        .dropdown-item:hover {
+            background: #7ab3f3;
+            color: white;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+
+            .page-title {
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        /* Стили для текстовой таблички */
+        .text-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #333;
+            text-align: center;
+            margin: 0;
+        }
+
+              .content-block {
+            display: flex;
+            max-width: 1200px;
+            margin: 80px auto;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .text-side {
+            flex: 1;
+        }
+
+        .carousel-side {
+            flex: 1;
+        }
+
+        .text-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .block-title {
+            color: #4A90E2;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .block-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            text-align: center;
+            margin: 0;
+        }
+
+        /* Стили для карусели */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-prev,
+        .carousel-next {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-prev:hover,
+        .carousel-next:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+     .instructors-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .instructors-title {
+            text-align: center;
+            color: rgb(255, 254, 254);
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .instructors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .instructor-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .instructor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .instructor-photo {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .instructor-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .instructor-card:hover .instructor-image {
+            transform: scale(1.05);
+        }
+
+        .instructor-info {
+            padding: 25px;
+        }
+
+        .instructor-name {
+            color: #000000;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .instructor-specialty {
+            color: #001fd1;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .instructor-description {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            margin: 0;
+            font-style: italic;
+        }
+
+      .faq-section {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .faq-title {
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .faq-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9fa;
+        }
+
+        .faq-number {
+            background: #4A90E2;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .faq-question span:not(.faq-number) {
+            flex-grow: 1;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .faq-toggle {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4A90E2;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .faq-answer p {
+            margin: 0;
+            padding: 20px 0;
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Активный состояние */
+        .faq-item.active .faq-question {
+            background-color: #f0f7ff;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            color: #ff2600;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+.footer {
+    background:transparent;
+    padding: 40px 20px;
+
+    margin-top: 40px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.footer-title {
+    color: #4A90E2;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-text {
+    color: white;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 0; 
+    background: transparent; 
+    transition: all 0.3s ease;
+    width: auto; 
+    height: auto; 
+}
+
+.social-link:hover {
+    background: transparent; 
+    transform: translateY(-2px) scale(1.1);
+}
+
+.social-icon {
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+
+.vk-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.telegram-icon {
+    width: 70px;
+    height: 70px;
+}
+
+.whatsapp-icon {
+    width: 40px; 
+    height: 40px;
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.2);
+}
+
+    </style>
+</head>
+<body>
+    <header class="header">
+             <div class="header-content">
+        <img src="img/цунами111.png" alt="Цунами" class="logo">
+            <nav class="nav">
+                <a href="#" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Услуги</a>
+                    <div class="dropdown-menu">
+                        <a href="#swimming.html" class="dropdown-item">Плавание</a>
+                        <a href="#water-polo.html" class="dropdown-item">Водное поло</a>
+                        <a href="#rowing.html" class="dropdown-item">Гребля</a>
+                        <a href="#sailing.html" class="dropdown-item">Парусный спорт</a>
+                    </div>
+                </div>
+                <a href="#about.html" class="nav-link">О нас</a>
+                <a href="#contacts.html" class="nav-link contact-btn">Контакты</a>
+            </nav>
+             </div>
+    </header>
+    
+     
+    <h1 class="page-title">О клубе</h1>
+
+    <!-- Текст в табличке -->
+    <div class="text-container">
+        <p class="about-text">Клуб водных видов спорта — это не только про спорт, но и стиль жизни. Мы — команда профессионалов, которая качественно работают и делают своё дело с удовольствием. К нам приходят люди самой разной подготовки и физической формы, мы найдём подход к каждому!</p>
+    </div>
+
+    <div class="content-block">
+        <div class="text-side">
+            <div class="text-content">
+                <h2 class="block-title">Наша история</h2>
+                <p class="block-text">Наш клуб работает с 2012 года и за это время мы провели больше 1000 сплавов и походов! Хочется сказать что мы классные, но лучше всего это показывают наши клиенты, которые сотрудничают с нами не один год.</p>
+            </div>
+        </div>
+        <div class="carousel-side">
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="img/555.jpg" alt="История клуба 1" class="carousel-image">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/55.jpg" alt="История клуба 2" class="carousel-image">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/444.jpg" alt="История клуба 3" class="carousel-image">
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-prev">‹</button>
+                    <button class="carousel-next">›</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Второй блок: карусель слева, текст справа -->
+    <div class="content-block">
+        <div class="carousel-side">
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="img/99.jpg" alt="Направления 1" class="carousel-image">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/88.jpg" alt="Направления 2" class="carousel-image">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/66.jpg" alt="Направления 3" class="carousel-image">
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-prev">‹</button>
+                    <button class="carousel-next">›</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-side">
+            <div class="text-content">
+                <h2 class="block-title">Наши направления</h2>
+                <p class="block-text">Мы осуществляем свою деятельность по четырем направлениям: плавание, водное поло, гребля, парусный спорт. У нас самые лучшие инструкторы в городе!</p>
+            </div>
+        </div>
+    </div>
+
+      <!-- Секция с инструкторами -->
+    <section class="instructors-section">
+        <h2 class="instructors-title">Наши инструкторы</h2>
+        
+        <div class="instructors-grid">
+            <!-- Инструктор 1 - Плавание -->
+            <div class="instructor-card">
+                <div class="instructor-photo">
+                    <img src="img/ава.jpg" alt="Инструктор по плаванию" class="instructor-image">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">Имя Фамилия</h3>
+                    <p class="instructor-specialty">Инструктор по плаванию</p>
+                    <p class="instructor-description">Занимается плаванием более 15 лет. Мастер спорта России. "Плавание - это искусство движения в воде, которому я научу каждого!"</p>
+                </div>
+            </div>
+
+            <!-- Инструктор 2 - Водное поло -->
+            <div class="instructor-card">
+                <div class="instructor-photo">
+                    <img src="img/ава.jpg" alt="Инструктор по водному поло" class="instructor-image">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">Имя Фамилия</h3>
+                    <p class="instructor-specialty">Инструктор по водному поло</p>
+                    <p class="instructor-description">Опыт работы 10 лет. Чемпион области по водному поло. "Командный дух и стратегия - ключ к победе в водном поло!"</p>
+                </div>
+            </div>
+
+            <!-- Инструктор 3 - Гребля -->
+            <div class="instructor-card">
+                <div class="instructor-photo">
+                    <img src="img/ава.jpg" alt="Инструктор по гребле" class="instructor-image">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">Имя Фамилия</h3>
+                    <p class="instructor-specialty">Инструктор по гребле</p>
+                    <p class="instructor-description">Греблей занимается 12 лет. Участник всероссийских соревнований. "Гребля - это диалог с водой, где каждое движение имеет значение!"</p>
+                </div>
+            </div>
+
+            <!-- Инструктор 4 - Парусный спорт -->
+            <div class="instructor-card">
+                <div class="instructor-photo">
+                    <img src="img/ава2.jpg" alt="Инструктор по парусному спорту" class="instructor-image">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">Имя Фамилия</h3>
+                    <p class="instructor-specialty">Инструктор по парусному спорту</p>
+                    <p class="instructor-description">Парусным спортом увлекается 8 лет. Сертифицированный инструктор. "Парус - это не просто спорт, это философия свободы и ветра!"</p>
+                </div>
+            </div>
+
+            <!-- Инструктор 5 - Детское плавание -->
+            <div class="instructor-card">
+                <div class="instructor-photo">
+                    <img src="img/ава2.jpg" alt="Инструктор по плаванию" class="instructor-image">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">Имя Фамилия</h3>
+                    <p class="instructor-specialty">Инструктор по детскому плаванию</p>
+                    <p class="instructor-description">Специализируется на обучении детей от 3 лет. Опыт работы 7 лет. "Люблю видеть, как дети открывают для себя радость плавания!"</p>
+                </div>
+            </div>
+
+            <!-- Инструктор 6 - Синхронное плавание -->
+            <div class="instructor-card">
+                <div class="instructor-photo">
+                    <img src="img/ава2.jpg" alt="Инструктор по синхронному плаванию" class="instructor-image">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">Имя Фамилия</h3>
+                    <p class="instructor-specialty">Инструктор по синхронному плаванию</p>
+                    <p class="instructor-description">Бывшая участница сборной по синхронному плаванию. Опыт 9 лет. "Синхронное плавание - это танец в воде, где грация встречает силу!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+        <section class="faq-section">
+        <h2 class="faq-title">Ответы на вопросы</h2>
+        
+        <div class="faq-container">
+            <!-- Вопрос 1 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">1</span>
+                    Нужно ли иметь специальную экипировку для занятий?
+                    <span class="faq-toggle"></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Для занятий плаванием рекомендуется иметь специальный купальный костюм и шапочку, которые обеспечат комфортное плавание. Также, для занятий в бассейне могут потребоваться специальные очки или маски для плавания.</p>
+                </div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">2</span>
+                    Можно ли заниматься плаванием при наличии заболеваний опорно-двигательной системы?
+                    <span class="faq-toggle"></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Плавание является низконагруженным видом физической активности, что делает его безопасным для занятий при различных заболеваниях опорно-двигательной системы. Однако, перед началом занятий рекомендуется проконсультироваться с врачом.</p>
+                </div>
+            </div>
+
+            <!-- Вопрос 3 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">3</span>
+                    С какого возраста можно начинать заниматься у вас?
+                    <span class="faq-toggle"></span>
+                </div>
+                <div class="faq-answer">
+                    <p>с 18 лет</p>
+                </div>
+            </div>
+
+            <!-- Вопрос 4 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">4</span>
+                    Какие преимущества дает занятие плаванием?
+                    <span class="faq-toggle"></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Занятия плаванием дарят детям огромное количество преимуществ, включая укрепление иммунитета, развитие физической формы, укрепление мышечного корсета, улучшение координации и гибкости, развитие памяти и внимания, а также обучение дисциплине и умению работать в команде.</p>
+                </div>
+            </div>
+
+            <!-- Вопрос 5 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-number">5</span>
+                    Какие навыки необходимы для занятий водным поло?
+                    <span class="faq-toggle"></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Для занятий водным поло необходимо иметь хорошую физическую форму, координацию движений и умение плавать на дистанции. Также необходимы навыки игры в команде и стратегического мышления.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <div class="wave-divider">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+
+     <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+            
+      <p class="footer-text">г. Липецк, улица 50 лет НЛМК, 6Б</p>
+                <p class="footer-text">Пн-Пт: 8:00 - 22:00</p>
+                <p class="footer-text">Сб-Вс: 9:00 - 20:00</p>
+            </div>
+
+            <div class="footer-column">
+            
+            <div class="social-links">
+    <a href="https://vk.com/anastasia_arcadievna" class="social-link" target="_blank">
+        <img src="img/вк.png" alt="ВКонтакте" class="social-icon vk-icon">
+    </a>
+    <a href="https://t.me/tapok_kar" class="social-link" target="_blank">
+        <img src="img/тг.png" alt="Телеграм" class="social-icon telegram-icon">
+    </a>
+    <a href="https://wa.me/79205346316" class="social-link" target="_blank">
+        <img src="img/ватсап.png" alt="WhatsApp" class="social-icon whatsapp-icon">
+    </a>
+</div>
+        </div>
+
+
+            <div class="footer-column">
+            
+                <p class="footer-text">+7 (900) 123-45-67</p>
+                <p class="footer-text">tsunami@gmail.ru</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Функция для работы карусели
+    function initCarousel(container) {
+        const slides = container.querySelectorAll('.carousel-slide');
+        const prevBtn = container.querySelector('.carousel-prev');
+        const nextBtn = container.querySelector('.carousel-next');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Автопереключение каждые 5 секунд
+        setInterval(nextSlide, 5000);
+    }
+
+    // Инициализация всех каруселей на странице
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousels = document.querySelectorAll('.carousel-container');
+        carousels.forEach(initCarousel);
+    });
+
+    
+</script>
+
+<script>
+    // Функция для работы аккордеона
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Закрываем все остальные элементы
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Переключаем текущий элемент
+                item.classList.toggle('active');
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

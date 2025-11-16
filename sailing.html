@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цунами</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+    
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            height: 100vh;
+                   margin: 0;
+            padding: 0;
+    background-image: url('img/11111.jpg');
+    background-size: cover; 
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+        
+.header {
+    background: none; 
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 60px;
+    position: relative;
+    z-index: 2;
+}
+        
+        
+        .logo {
+            height: 180px; 
+            width: auto;
+            margin-top: 25px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 50px; 
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgb(0, 0, 0); 
+            font-size: 22px; 
+            font-weight: bold;
+            white-space: nowrap; 
+            transition: all 0.3s ease; 
+            position: relative;
+        }
+
+    .nav-link:not(.contact-btn):not(.dropdown-toggle):hover {
+            color: #ff2600 !important;
+        }
+
+        .contact-btn {
+            background: rgb(28, 0, 151);  
+            color:#ffffff !important;
+            padding: 12px 30px !important;
+            border-radius: 25px; 
+            border: none;
+            font-weight: bold;
+            transition: all 0.3s ease; 
+            display: inline-block;
+            transform: scale(1); 
+        }
+        
+        
+        .contact-btn:hover {
+            transform: scale(1.1); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+                 color: black !important;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+              .dropdown-toggle::after {
+            content: " ▼";
+            font-size: 14px;
+        }
+
+          .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+       
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+       
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+        
+        .dropdown-item:hover {
+            background: #7ab3f3;
+            color: white;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+     .content-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .sport-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .sport-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .sport-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .sport-description {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .sport-title {
+            color: #4A90E2;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sport-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+        }
+ 
+              .pricing-section {
+            width: 100%;
+            margin: 60px 0;
+            padding: 0;
+        }
+
+        .pricing-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            padding: 60px 20px;
+            width: 100%;
+        }
+
+        .pricing-title {
+            text-align: center;
+            color: #4A90E2;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .pricing-table {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px;
+            background: #77b4f1;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin: 0 20px;
+        }
+
+        .pricing-row:hover {
+            background: #c7e1fa;
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-service {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .pricing-price {
+            font-size: 26px;
+            font-weight: bold;
+            color: #001fd1;
+            background: linear-gradient(135deg, #91c1ff, #89c1f8);
+            padding: 12px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #001fd1;
+        }
+     .instructor-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .instructor-title {
+            text-align: center;
+            color: rgb(255, 255, 255);
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+       .instructor-card-single {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .instructor-photo-single {
+            width: 100%;
+            height: 300px;
+        }
+
+        .instructor-image-single {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .instructor-info-single {
+            padding: 30px;
+        }
+
+        .instructor-name-single {
+            color: #000000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .instructor-specialty-single {
+            color: #001fd1;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .instructor-description-single {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+      
+.footer {
+    background:transparent;
+    padding: 40px 20px;
+
+    margin-top: 40px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+}
+
+.footer-title {
+    color: #4A90E2;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-text {
+    color: white;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 0; 
+    background: transparent; 
+    transition: all 0.3s ease;
+    width: auto; 
+    height: auto; 
+}
+
+.social-link:hover {
+    background: transparent; 
+    transform: translateY(-2px) scale(1.1);
+}
+
+.social-icon {
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+
+.vk-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.telegram-icon {
+    width: 70px;
+    height: 70px;
+}
+
+.whatsapp-icon {
+    width: 40px; 
+    height: 40px;
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.2);
+}
+
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+             <div class="header-content">
+        <img src="img/цунами111.png" alt="Цунами" class="logo">
+            <nav class="nav">
+                <a href="#" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">Услуги</a>
+                    <div class="dropdown-menu">
+                        <a href="#swimming.html" class="dropdown-item">Плавание</a>
+                        <a href="#water-polo.html" class="dropdown-item">Водное поло</a>
+                        <a href="#rowing.html" class="dropdown-item">Гребля</a>
+                        <a href="#sailing.html" class="dropdown-item">Парусный спорт</a>
+                    </div>
+                </div>
+                <a href="#about.html" class="nav-link">О нас</a>
+                <a href="#contacts.html" class="nav-link contact-btn">Контакты</a>
+            </nav>
+             </div>
+    </header>
+    
+         <section class="content-section">
+        <div class="sport-content">
+            <div class="sport-image">
+                <img src="img/парус.jpg" alt="Парус">
+            </div>
+            <div class="sport-description">
+                <h2 class="sport-title">Парусный спорт</h2>
+                <p class="sport-text">Парусный спорт — вид состязаний, в котором спортсмены соревнуются, используя парусное снаряжение, установленное, главным образом, на яхтах. Занятия парусным спортом развивают физическую выносливость, интеллектуальные навыки и навыки работы в команде. </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <h2 class="pricing-title">Расценки</h2>
+            
+            <div class="pricing-table">
+                <div class="pricing-row">
+                    <div class="pricing-service">1 раз в неделю</div>
+                    <div class="pricing-price">1000 рублей</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="pricing-service">2 раза в неделю</div>
+                    <div class="pricing-price">2000 рублей</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="pricing-service">Индивидуальное занятие</div>
+                    <div class="pricing-price">2500 рублей</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="instructor-section">
+        <h2 class="instructor-title">Наш инструктор</h2>
+        
+        <div class="instructor-card-single">
+            <div class="instructor-photo-single">
+                <img src="img/поло.jpg" alt="Инструктор по водному поло" class="instructor-image-single">
+            </div>
+            <div class="instructor-info-single">
+                <h3 class="instructor-name-single">Имя Фамилия</h3>
+                <p class="instructor-specialty-single">Инструктор по парусному спорту</p>
+                <p class="instructor-description-single">Чемпион области. "Стратегия - ключ к победе!"</p>
+                <div class="instructor-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">лет опыта</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500</span>
+                        <span class="stat-label">учеников</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">побед</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <div class="wave-divider">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+        </svg>
+    </div>
+
+     <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+            
+               <p class="footer-text">г. Липецк, улица 50 лет НЛМК, 6Б</p> 
+                <p class="footer-text">Пн-Пт: 8:00 - 22:00</p>
+                <p class="footer-text">Сб-Вс: 9:00 - 20:00</p>
+            </div>
+
+            <div class="footer-column">
+                          
+            <div class="social-links">
+    <a href="https://vk.com/anastasia_arcadievna" class="social-link" target="_blank">
+        <img src="img/вк.png" alt="ВКонтакте" class="social-icon vk-icon">
+    </a>
+    <a href="https://t.me/tapok_kar" class="social-link" target="_blank">
+        <img src="img/тг.png" alt="Телеграм" class="social-icon telegram-icon">
+    </a>
+    <a href="https://wa.me/79205346316" class="social-link" target="_blank">
+        <img src="img/ватсап.png" alt="WhatsApp" class="social-icon whatsapp-icon">
+    </a>
+</div>
+        </div>
+
+
+            <div class="footer-column">
+                <p class="footer-text">+7 (900) 123-45-67</p>
+                <p class="footer-text">tsunami@gmail.ru</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
